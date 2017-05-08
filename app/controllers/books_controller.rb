@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   def index
-
+    @books = Book.all.order("created_at DESC")
   end
 
   def new
@@ -9,6 +9,12 @@ class BooksController < ApplicationController
 
   def create
     @book = Book.new(book_params)
+
+    if @book.save
+      redirect_to root_path
+    else
+      redirect_to 'new'
+    end
   end
 
 
